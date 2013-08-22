@@ -1,10 +1,13 @@
 /**
- * @author gpaes
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2013 Gustavo Paes <gustavo.paes@gmail.com>
  *
  * Cria um simples servidor WebSocket para realizar testes básicos no client, antes
  * de possuir a infra final do produto.
  *
  * NÃO USAR EM AMBIENTE DE PRODUÇÃO!
+ *
  */
 (function( PORTA ) {
 	"use strict";
