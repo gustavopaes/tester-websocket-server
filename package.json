@@ -1,0 +1,25 @@
+{
+	"name": "tester-websocket-server",
+	"description": "Servidor websocket para testes pré-produção.",
+	"version": "1.0.0",
+	"keywords": [
+		"websocket",
+		"websockets",
+		"socket",
+		"server"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/gustavopaes/tester-websocket-server.git"
+	},
+	"author": {
+		"name": "Gustavo Paes",
+		"email": "gustavo.paes@gmail.com",
+		"url": "http://gustavopaes.net/"
+	},
+	"dependencies": {
+		"websocket": ">= 1.0.8"
+	},
+	"engine": "node 0.10.2",
+	"readmeFilename": "README.md"
+}

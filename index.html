@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Publicar no WebSocket</title>
+  <style type="text/css">
+  body { font-family: arial; font-size: 14px; }
+  .connected { font-weight: bold; color: green; }
+  .disconnected { font-weight: bold; color: red; }
+  .action { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <strong>Status:</strong>
+    <span id="statusArea"></span>
+    | <span id="action" onclick="disconnect()">Desconectar</span>
+    | <span id="action" onclick="connect()">Conectar</span>
+  </header>
+
+  <h1>Publicar</h1>
+  <textarea id="data" rows="20" style="width:100%"></textarea>
+  <button onclick="publish()">Publicar</button>
+
+  <h2>Última mensagem do server</h2>
+  <textarea id="last" rows="20" style="width:100%"></textarea>
+
+  <script type="text/javascript">
+  // Define status da conexão
+  function status(status) {
+    var label = {
+      'connected': 'Conectado',
+      'disconnected': 'Desconectado',
+      'connecting': 'Estabelecendo conexão'
+    };
+
+    with(document.querySelector("#statusArea")) {
+      innerHTML = label[status];
+      className = status;
+    }
+  };
+
+  var server;
+
+  /**
+   * Inicia a conexão com o servidor websocket.
+   */
+  function connect() {
+    status('connecting');
+    server = new WebSocket("ws://localhost:8080/", "echo-protocol");
+
+    server.onopen = function() {
+      status('connected');
+    };
+
+    server.onclose = function() {
+      status('disconnected');
+    }
+
+    // Exibe no textarea #last a última mensagem recebida
+    // do servidor.
+    server.onmessage = function(message) {
+      if(message.type === "message") {
+        document.querySelector("#last").value = message.data.toString();
+      }
+    };
+  }
+
+  /**
+   * Envia uma mensagem para o servidor websocket
+   */
+  function publish() {
+    server && server.send(document.getElementById("data").value);
+  };
+
+  /**
+   * Desconecta do websocket
+   */
+  function disconnect() {
+    server && server.close();
+
+    delete server.onopen;
+    delete server.onclose;
+    delete server.onmessage;
+  }
+
+  // inicia a conexão
+  connect();
+  </script>
+
+</body>
+</html>
