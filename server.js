@@ -6,9 +6,9 @@
  *
  * NÃO USAR EM AMBIENTE DE PRODUÇÃO!
  */
-
-"use strict";
 (function( PORTA ) {
+	"use strict";
+
 	var WebSocketServer = require('websocket').server,
 		http = require('http'),
 		fs = require('fs'),
@@ -104,16 +104,16 @@
 							conn.sendUTF(message.utf8Data);
 				}
 			}
-	  });
+	});
 
-		// Evento disparado quando a conexão é fechada
-		connection.on('close', function(reasonCode, description) {
-			// força rodar o gargabeConnections
-			garbageConnections();
-		});
+	// Evento disparado quando a conexão é fechada
+	connection.on('close', function(reasonCode, description) {
+		// força rodar o gargabeConnections
+		garbageConnections();
+	});
 
-		// adiciona a nova conexão à lista de conexões
-		connections.push(connection);
+	// adiciona a nova conexão à lista de conexões
+	connections.push(connection);
 	});
 
 	// registra collection gargabe para as conexões inativas
